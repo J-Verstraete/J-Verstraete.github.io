@@ -47,5 +47,8 @@ export default Vue.extend({
   data: () => ({
     //
   }),
+  mounted() {
+    this.$store.dispatch("fetchStations")
+  }
 });
 </script>

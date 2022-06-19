@@ -1,8 +1,8 @@
 <template>
   <div>
-    <stations-map :stations="stations" :selected-station="selectedStation" @select="selectStation"/>
     <v-autocomplete v-model="selectedStation"
                     :items="stationsForAutocomplete"/>
+    <stations-map :selected-station="selectedStation" @select="selectStation"/>
     <v-list dense>
       <v-subheader>Stations</v-subheader>
       <v-list-item-group
@@ -28,7 +28,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import axios from 'axios';
 import StationsMap from '@/components/StationsMap.vue';
 import { StationClass } from '@/classes/StationClass'; // @ is an alias to /src
 
@@ -38,17 +37,8 @@ import { StationClass } from '@/classes/StationClass'; // @ is an alias to /src
   },
 })
 export default class HomeView extends Vue {
-  stations: StationClass[] = [];
+  stations: StationClass[] = this.$store.getters.getStations;
   selectedStation: StationClass | null = null;
-
-  mounted() {
-    axios.get('http://api.citybik.es/v2/networks/velo-antwerpen')
-      .then((resp) => resp.data)
-      .then((data) => data.network)
-      .then((network) => {
-        network.stations.forEach((station: StationClass) => this.stations.push(new StationClass(station)));
-      });
-  }
 
   selectStation(id: string) {
     this.selectedStation = this.stations.find(station => station.id === id) || null;

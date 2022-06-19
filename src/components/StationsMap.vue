@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <l-map style="height: 50vh" :zoom.sync="zoom" :center.sync="center">
-      <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-      <l-marker v-for="marker in markers"
-                :lat-lng="marker.latlng"
-                :icon="marker.icon" :key="marker.id"
-                @click="clicked(marker)"
-      >
-        <stations-map-popup :marker="marker"/>
-      </l-marker>
-    </l-map>
-  </div>
+  <l-map style="height: 50vh;z-index: 0" :zoom.sync="zoom" :center.sync="center">
+    <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
+    <l-marker v-for="marker in markers"
+              :lat-lng="marker.latlng"
+              :icon="marker.icon" :key="marker.id"
+              @click="clicked(marker)"
+    >
+      <stations-map-popup :marker="marker"/>
+    </l-marker>
+  </l-map>
 </template>
 
 <script lang="ts">
@@ -29,7 +27,7 @@ import { MarkerClass } from '@/classes/MarkerClass';
   },
 })
 export default class StationsMap extends Vue {
-  @Prop(Array) readonly stations!: StationClass[];
+  stations: StationClass[] = this.$store.getters.getStations;
   @Prop(Object) readonly selectedStation!: StationClass | null;
 
   url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
