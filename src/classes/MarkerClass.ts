@@ -11,28 +11,52 @@ export class MarkerClass {
   addres: string;
 
   constructor(station: StationClass) {
-    this.icon = MarkerClass.getIcon(false);
     this.latlng = [station.latitude, station.longitude];
     this.id = station.id;
     this.empty_slots = station.empty_slots;
     this.free_bikes = station.free_bikes;
     this.name = station.name;
     this.addres = station.extra.address;
+    this.icon = this.getIcon(false);
   }
 
-  private static getIcon(selected: boolean): L.Icon {
+  private getIcon(selected: boolean): L.Icon {
     return L.icon({
-      iconUrl: require('@/assets/pin.svg'),
-      iconSize: selected ? [45, 45] : [30, 30],
-      iconAnchor: [15, 30]
+      iconUrl: this.getIconLocation(),
+      iconSize: selected ? [44, 44] : [30, 30],
+      iconAnchor:selected ?  [22, 44]: [15,30]
     });
   }
 
-  select() {
-    this.icon = MarkerClass.getIcon(true);
+  private isEmpty() {
+    return this.empty_slots === 0;
   }
 
-  deSelect() {
-    this.icon = MarkerClass.getIcon(false);
+  private isFull() {
+    return this.free_bikes === 0;
   }
+
+  private getIconLocation() {
+    if (this.isEmpty()) {
+      return require('@/assets/pin_empty.svg');
+    } else if (this.isFull()) {
+      return require('@/assets/pin_full.svg');
+    } else {
+      return require('@/assets/pin_regular.svg');
+    }
+  }
+
+  select() {
+    this.icon = this.getIcon(true);
+  }
+
+  deselect() {
+    this.icon = this.getIcon(false);
+  }
+}
+
+enum markerType {
+  REGULAR,
+  FULL,
+  EMPTY,
 }

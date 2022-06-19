@@ -86,7 +86,7 @@ export default class StationsMap extends Vue {
       if (oldVal && oldVal?.id !== '') {
         const unselectedMarker = this.markers.find(marker => marker.id === oldVal.id);
         if (unselectedMarker) {
-          unselectedMarker.deSelect();
+          unselectedMarker.deselect();
         }
       }
     }
