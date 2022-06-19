@@ -27,7 +27,8 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import axios from 'axios';
-import StationsMap from '@/components/StationsMap.vue'; // @ is an alias to /src
+import StationsMap from '@/components/StationsMap.vue';
+import { StationClass } from '@/classes/StationClass'; // @ is an alias to /src
 
 @Component({
   components: {
@@ -35,15 +36,15 @@ import StationsMap from '@/components/StationsMap.vue'; // @ is an alias to /src
   },
 })
 export default class HomeView extends Vue {
-  stations: object[] = [];
-  selectedStation: object | null = null;
+  stations: StationClass[] = [];
+  selectedStation: StationClass | null = null;
 
   mounted() {
     axios.get('http://api.citybik.es/v2/networks/velo-antwerpen')
       .then((resp) => resp.data)
       .then((data) => data.network)
       .then((network) => {
-        network.stations.forEach((station: object) => this.stations.push(station));
+        network.stations.forEach((station: StationClass) => this.stations.push(new StationClass(station)));
       });
   }
 }
