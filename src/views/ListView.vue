@@ -43,6 +43,7 @@ export default class ListView extends Vue {
 
   selectStation(station: StationClass) {
     this.$store.dispatch('selectStation', station.id);
+    this.$router.push({ name: 'home' });
   }
 }
 </script>

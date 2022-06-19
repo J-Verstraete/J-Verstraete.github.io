@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { LMap, LMarker, LTileLayer } from 'vue2-leaflet';
 import StationsMapPopup from '@/components/map/StationsMapPopup.vue';
 import { StationClass } from '@/classes/StationClass';
@@ -27,6 +27,13 @@ import { MarkerClass } from '@/classes/MarkerClass';
   },
 })
 export default class StationsMap extends Vue {
+  created() {
+    if (this.selectedStation) {
+      this.zoom = 18;
+      this.onSelectedStationUpdate(this.selectedStation, null);
+    }
+  }
+
   get stations(): StationClass[] {
     return this.$store.getters.getStations;
   }
@@ -54,7 +61,7 @@ export default class StationsMap extends Vue {
   }
 
   @Watch('selectedStation')
-  onSelectedStationUpdate(newVal: StationClass, oldVal: StationClass) {
+  onSelectedStationUpdate(newVal: StationClass | null, oldVal: StationClass | null) {
     if (oldVal?.id !== newVal?.id) {
       console.log('Selected station update');
       if (newVal && newVal?.id !== '') {
