@@ -27,6 +27,8 @@ Please find the deployed application on https://j-verstraete.github.io/
 
 ## What I made:
 
+First of all: Rombit did not specify a timeframe. That is why I gave myself 8 hours to finish this task.
+
 Since i have no prior experience with React, I made the following changes to the tools & frameworks:
 
 - React -> Vue 2.x
