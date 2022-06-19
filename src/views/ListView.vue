@@ -23,20 +23,31 @@
         <v-subheader>Stations</v-subheader>
         <v-list-item-group
           :value="selectedStation"
-          @change="selectStation($event)"
           color="primary"
         >
           <v-list-item
+            @click="selectStation($event)"
             v-for="(station, i) in filteredStations"
             :key="i"
             :value="station"
           >
-            <v-list-item-icon>
+            <v-list-item-avatar>
               <v-icon>mdi-bike</v-icon>
-            </v-list-item-icon>
+            </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title v-text="station.name"/>
             </v-list-item-content>
+            <v-list-item-action @click.stop>
+              <v-rating
+                @input="updateRating($event,station.id)"
+                empty-icon="mdi-star-outline"
+                full-icon="mdi-star"
+
+                hover
+                :length="5"
+                :value="3"
+              />
+            </v-list-item-action>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -74,6 +85,13 @@ export default class ListView extends Vue {
   selectStation(station: StationClass) {
     this.$store.dispatch('selectStation', station.id);
     this.$router.push({ name: 'home' });
+  }
+
+  updateRating(rating: number, id: string) {
+    this.$store.dispatch('updateRating', {
+      rating,
+      id
+    });
   }
 }
 </script>
