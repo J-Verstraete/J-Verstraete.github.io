@@ -1,21 +1,22 @@
 <template>
-  <v-rating
-    @input="updateRating($event,station.id)"
-    empty-icon="mdi-star-outline"
-    full-icon="mdi-star"
-    hover
-    :length="5"
-    :value="rating"
-  />
+  <div>
+    <v-rating
+      @input="updateRating($event,stationId)"
+      empty-icon="mdi-star-outline"
+      full-icon="mdi-star"
+      hover
+      :length="5"
+      :value="rating"
+    />
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { StationClass } from '@/classes/StationClass'; // @ is an alias to /src
 
 @Component({})
 export default class Rating extends Vue {
-  @Prop(Object) readonly station!: StationClass;
+  @Prop(String) readonly stationId!: string;
 
   updateRating(rating: number, id: string) {
     this.$store.dispatch('updateRating', {
@@ -25,7 +26,7 @@ export default class Rating extends Vue {
   }
 
   get rating() {
-    return this.$store.getters.getRatingById(this.station.id);
+    return this.$store.getters.getRatingById(this.stationId);
   }
 }
 </script>

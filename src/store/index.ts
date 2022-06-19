@@ -34,7 +34,7 @@ export default new Vuex.Store({
     },
     getRatingById: (state) => (stationId: string) => {
       const rating = state.ratings.find(todo => todo.stationId === stationId);
-      return rating  ? rating.rating : 3
+      return rating ? rating.rating : 3;
     },
   },
   mutations: {
@@ -60,10 +60,8 @@ export default new Vuex.Store({
     addRating(state, rating: RatingClass) {
       const existingRating = state.ratings.find(r => r.stationId === rating.stationId);
       if (existingRating) {
-        console.log('Update rating');
         existingRating.rating = rating.rating;
       } else {
-        console.log('New rating');
         state.ratings.push(rating);
       }
     },

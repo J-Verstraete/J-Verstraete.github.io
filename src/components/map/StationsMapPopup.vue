@@ -1,10 +1,10 @@
 <template>
   <l-popup>
     <v-row dense>
-      <v-col><strong>{{ marker.name }}</strong></v-col>
+      <v-col cols="auto"><strong>{{ marker.name }}</strong></v-col>
     </v-row>
-    <v-row dense style="width: 200pt">
-      <v-col cols="auto">
+    <v-row dense>
+      <v-col>
         <v-icon>mdi-bicycle</v-icon>
         {{ marker.free_bikes }}
       </v-col>
@@ -19,6 +19,11 @@
         {{ marker.addres }}
       </v-col>
     </v-row>
+    <v-row dense>
+      <v-col style="background-color: #fff1ea">
+        <rating :station-id="marker.id"/>
+      </v-col>
+    </v-row>
   </l-popup>
 </template>
 
@@ -26,10 +31,12 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { LPopup } from 'vue2-leaflet';
 import { MarkerClass } from '@/classes/MarkerClass';
+import Rating from '@/components/Rating.vue';
 
 @Component({
   components: {
     LPopup,
+    Rating,
   },
 })
 export default class StationsMapPopup extends Vue {

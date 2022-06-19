@@ -38,7 +38,7 @@
               <v-list-item-title v-text="station.name"/>
             </v-list-item-content>
             <v-list-item-action @click.stop>
-              <rating :station="station"/>
+              <rating :station-id="station.id"/>
             </v-list-item-action>
           </v-list-item>
         </v-list-item-group>
@@ -53,7 +53,7 @@ import { StationClass } from '@/classes/StationClass'; // @ is an alias to /src
 import Rating from '@/components/Rating.vue';
 
 @Component({
-  components: {Rating}
+  components: { Rating }
 })
 export default class ListView extends Vue {
   searchFilter = 'All';
