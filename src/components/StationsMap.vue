@@ -6,14 +6,36 @@
                 :lat-lng="marker.latlng"
                 :icon="marker.icon" :key="marker.id"
                 @click="clicked(marker)"
-      />
+      >
+        <l-popup >
+          <v-row dense>
+            <v-col><strong>{{ marker.name }}</strong></v-col>
+
+          </v-row>
+          <v-row dense style="width: 200pt">
+            <v-col cols="auto">
+              <v-icon>mdi-bicycle</v-icon>
+              {{ marker.free_bikes }}
+            </v-col>
+            <v-col>
+              <v-icon>mdi-lock-open-variant-outline</v-icon>
+              {{ marker.empty_slots }}
+            </v-col>
+          </v-row>
+          <v-row dense>
+            <v-col>              <v-icon>mdi-map-marker-outline</v-icon>
+              {{ marker.addres }}</v-col>
+          </v-row>
+
+        </l-popup>
+      </l-marker>
     </l-map>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { LMap, LMarker, LTileLayer } from 'vue2-leaflet';
+import { LMap, LMarker, LPopup, LTileLayer } from 'vue2-leaflet';
 import { StationClass } from '@/classes/StationClass';
 import { MarkerClass } from '@/classes/MarkerClass';
 
@@ -22,6 +44,7 @@ import { MarkerClass } from '@/classes/MarkerClass';
     LMap,
     LTileLayer,
     LMarker,
+    LPopup,
   },
 })
 export default class StationsMap extends Vue {
@@ -37,7 +60,15 @@ export default class StationsMap extends Vue {
   }
 
   clicked(marker: MarkerClass) {
-   this.center =marker.latlng
+    this.center = marker.latlng;
   }
 }
 </script>
+<style>
+.leaflet-popup-content-wrapper{
+  background-color: #fff1ea;
+}
+.leaflet-popup-tip{
+  background-color: #fff1ea;
+}
+</style>
