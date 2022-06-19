@@ -1,7 +1,8 @@
 <template>
   <div>
     <stations-map :stations="stations" :selected-station="selectedStation" @select="selectStation"/>
-
+    <v-autocomplete v-model="selectedStation"
+                    :items="stationsForAutocomplete"/>
     <v-list dense>
       <v-subheader>Stations</v-subheader>
       <v-list-item-group
@@ -50,7 +51,16 @@ export default class HomeView extends Vue {
   }
 
   selectStation(id: string) {
-    this.selectedStation = this.stations.find(station => station.id === id)||null;
+    this.selectedStation = this.stations.find(station => station.id === id) || null;
+  }
+
+  get stationsForAutocomplete() {
+    return this.stations.map(station => {
+      return {
+        text: station.name,
+        value: station
+      };
+    });
   }
 }
 </script>
