@@ -20,7 +20,7 @@
       </v-col>
     </v-row>
     <v-row dense>
-      <v-col style="background-color: #fff1ea">
+      <v-col>
         <rating :station-id="marker.id"/>
       </v-col>
     </v-row>

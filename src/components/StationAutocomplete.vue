@@ -1,5 +1,5 @@
 <template>
-  <v-card max-width="300pt" style="background-color: #fff1ea;position: absolute;   left: 0;right: 0;margin: auto;
+  <v-card max-width="300pt" style="position: absolute;   left: 0;right: 0;margin: auto;
   top: 8pt; z-index: 1" class="pa-2 pb-0">
     <v-autocomplete
       label="Zoek"

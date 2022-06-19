@@ -1,5 +1,5 @@
 <template>
-  <v-container style="background-color: #fff1ea;">
+  <v-container>
     <v-card class="pa-3">
       <v-card-title>
         Find your station

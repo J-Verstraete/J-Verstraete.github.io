@@ -88,14 +88,3 @@ export default class StationsMap extends Vue {
   }
 }
 </script>
-
-
-<style>
-.leaflet-popup-content-wrapper {
-  background-color: #fff1ea;
-}
-
-.leaflet-popup-tip {
-  background-color: #fff1ea;
-}
-</style>
