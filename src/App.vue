@@ -21,6 +21,14 @@
       </div>
 
       <v-spacer/>
+
+      <v-progress-circular
+        v-if="loader"
+        indeterminate
+        color="primaryAccent1"
+      ></v-progress-circular>
+
+      <v-spacer/>
       <router-link to="/" class="ml-2 mr-2">
         <v-icon>mdi-map</v-icon>
       </router-link>
@@ -38,15 +46,16 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
 
-export default Vue.extend({
-  name: 'App',
-
-  data: () => ({
-    //
-  }),
-  mounted() {
-    this.$store.dispatch('fetchStations');
+@Component({})
+export default class App extends Vue {
+  get loader() {
+    return this.$store.getters.getLoader;
   }
-});
+
+  mounted() {
+    this.$store.dispatch('pollStations');
+  }
+}
 </script>
