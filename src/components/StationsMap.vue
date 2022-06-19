@@ -7,7 +7,7 @@
                 :icon="marker.icon" :key="marker.id"
                 @click="clicked(marker)"
       >
-        <l-popup >
+        <l-popup>
           <v-row dense>
             <v-col><strong>{{ marker.name }}</strong></v-col>
 
@@ -23,8 +23,10 @@
             </v-col>
           </v-row>
           <v-row dense>
-            <v-col>              <v-icon>mdi-map-marker-outline</v-icon>
-              {{ marker.addres }}</v-col>
+            <v-col>
+              <v-icon>mdi-map-marker-outline</v-icon>
+              {{ marker.addres }}
+            </v-col>
           </v-row>
 
         </l-popup>
@@ -34,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { LMap, LMarker, LPopup, LTileLayer } from 'vue2-leaflet';
 import { StationClass } from '@/classes/StationClass';
 import { MarkerClass } from '@/classes/MarkerClass';
@@ -49,6 +51,7 @@ import { MarkerClass } from '@/classes/MarkerClass';
 })
 export default class StationsMap extends Vue {
   @Prop(Array) readonly stations!: StationClass[];
+  @Prop(Object) readonly selectedStation!: StationClass | null;
 
   url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
   attribution = '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors';
@@ -61,14 +64,29 @@ export default class StationsMap extends Vue {
 
   clicked(marker: MarkerClass) {
     this.center = marker.latlng;
+    this.selectStation(marker.id);
+  }
+
+  selectStation(id: string) {
+    this.$emit('select', id);
+  }
+
+  @Watch('selectedStation')
+  onSelectedStationUpdate(newVal: StationClass, oldVal: StationClass) {
+    if (oldVal?.id !== newVal?.id) {
+      console.log('Selected station update');
+    }
   }
 }
 </script>
+
+
 <style>
-.leaflet-popup-content-wrapper{
+.leaflet-popup-content-wrapper {
   background-color: #fff1ea;
 }
-.leaflet-popup-tip{
+
+.leaflet-popup-tip {
   background-color: #fff1ea;
 }
 </style>

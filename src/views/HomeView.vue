@@ -1,6 +1,6 @@
 <template>
   <div>
-    <stations-map :stations="stations"/>
+    <stations-map :stations="stations" :selected-station="selectedStation" @select="selectStation"/>
 
     <v-list dense>
       <v-subheader>Stations</v-subheader>
@@ -11,6 +11,7 @@
         <v-list-item
           v-for="(station, i) in stations"
           :key="i"
+          :value="station"
         >
           <v-list-item-icon>
             <v-icon>mdi-bike</v-icon>
@@ -46,6 +47,10 @@ export default class HomeView extends Vue {
       .then((network) => {
         network.stations.forEach((station: StationClass) => this.stations.push(new StationClass(station)));
       });
+  }
+
+  selectStation(id: string) {
+    this.selectedStation = this.stations.find(station => station.id === id)||null;
   }
 }
 </script>
