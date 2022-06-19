@@ -22,4 +22,12 @@ export class StationClass {
     this.name = station?.name || '';
     this.timestamp = station?.timestamp || '';
   }
+
+  isEmpty() {
+    return this.empty_slots === 0;
+  }
+
+  isFull() {
+    return this.free_bikes === 0;
+  }
 }
