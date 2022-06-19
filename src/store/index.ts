@@ -35,7 +35,7 @@ export default new Vuex.Store({
   },
   actions: {
     fetchStations(context) {
-      axios.get('http://api.citybik.es/v2/networks/velo-antwerpen')
+      axios.get('https://api.citybik.es/v2/networks/velo-antwerpen')
         .then((resp) => resp.data)
         .then((data) => data.network)
         .then((network) => {
