@@ -26,7 +26,7 @@
           color="primary"
         >
           <v-list-item
-            @click="selectStation($event)"
+            @click="selectStation(station)"
             v-for="(station, i) in filteredStations"
             :key="i"
             :value="station"
@@ -36,6 +36,7 @@
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title v-text="station.name"/>
+              <v-list-item-subtitle v-text="station.extra.address"/>
             </v-list-item-content>
             <v-list-item-action @click.stop>
               <rating :station-id="station.id"/>
@@ -78,6 +79,7 @@ export default class ListView extends Vue {
   }
 
   selectStation(station: StationClass) {
+    console.log('select stations,', station);
     this.$store.dispatch('selectStation', station.id);
     this.$router.push({ name: 'home' });
   }
