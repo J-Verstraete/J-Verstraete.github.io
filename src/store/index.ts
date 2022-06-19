@@ -31,7 +31,11 @@ export default new Vuex.Store({
     },
     getLoader(state) {
       return state.loader;
-    }
+    },
+    getRatingById: (state) => (stationId: string) => {
+      const rating = state.ratings.find(todo => todo.stationId === stationId);
+      return rating  ? rating.rating : 3
+    },
   },
   mutations: {
     addStation(state, station: StationClass) {
@@ -52,16 +56,14 @@ export default new Vuex.Store({
     setLoaderDone(state) {
       state.loader = false;
     },
-    getRating(state, id) {
-      const rating = state.ratings.find(r => r.stationId === id);
-      return rating ? rating.rating : 3;
-    },
+
     addRating(state, rating: RatingClass) {
-      console.log('Rating added', rating);
       const existingRating = state.ratings.find(r => r.stationId === rating.stationId);
       if (existingRating) {
+        console.log('Update rating');
         existingRating.rating = rating.rating;
       } else {
+        console.log('New rating');
         state.ratings.push(rating);
       }
     },

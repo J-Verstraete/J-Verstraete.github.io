@@ -38,15 +38,7 @@
               <v-list-item-title v-text="station.name"/>
             </v-list-item-content>
             <v-list-item-action @click.stop>
-              <v-rating
-                @input="updateRating($event,station.id)"
-                empty-icon="mdi-star-outline"
-                full-icon="mdi-star"
-
-                hover
-                :length="5"
-                :value="3"
-              />
+              <rating :station="station"/>
             </v-list-item-action>
           </v-list-item>
         </v-list-item-group>
@@ -58,8 +50,11 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { StationClass } from '@/classes/StationClass'; // @ is an alias to /src
+import Rating from '@/components/Rating.vue';
 
-@Component({})
+@Component({
+  components: {Rating}
+})
 export default class ListView extends Vue {
   searchFilter = 'All';
 
