@@ -75,6 +75,20 @@ export default class StationsMap extends Vue {
   onSelectedStationUpdate(newVal: StationClass, oldVal: StationClass) {
     if (oldVal?.id !== newVal?.id) {
       console.log('Selected station update');
+      if (newVal && newVal?.id !== '') {
+        const selectedMarker = this.markers.find(marker => marker.id === newVal.id);
+        if (selectedMarker) {
+          selectedMarker.name = 'YEEEES';
+          selectedMarker.select();
+          this.center = selectedMarker.latlng;
+        }
+      }
+      if (oldVal && oldVal?.id !== '') {
+        const unselectedMarker = this.markers.find(marker => marker.id === oldVal.id);
+        if (unselectedMarker) {
+          unselectedMarker.deSelect();
+        }
+      }
     }
   }
 }
