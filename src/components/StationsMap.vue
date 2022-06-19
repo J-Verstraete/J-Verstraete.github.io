@@ -3,6 +3,7 @@
     <l-map style="height: 300px" :zoom="zoom" :center="center">
       <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
     </l-map>
+
   </div>
 </template>
 
