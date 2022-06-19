@@ -1,7 +1,24 @@
 <template>
   <div>
-    v-
-    {{ stations }}
+    <v-list dense>
+      <v-subheader>Stations</v-subheader>
+      <v-list-item-group
+        v-model="selectedStation"
+        color="primary"
+      >
+        <v-list-item
+          v-for="(station, i) in stations"
+          :key="i"
+        >
+          <v-list-item-icon>
+            <v-icon>mdi-bike</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title v-text="station.name"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
     <hello-world/>
   </div>
 </template>
@@ -17,7 +34,9 @@ import axios from 'axios'; // @ is an alias to /src
   },
 })
 export default class HomeView extends Vue {
-  stations:object[] = [];
+  stations: object[] = [];
+
+  selectedStation: object | null = null;
 
   mounted() {
     axios.get('http://api.citybik.es/v2/networks/velo-antwerpen')
