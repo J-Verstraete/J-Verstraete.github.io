@@ -12,6 +12,10 @@
     >
       <stations-map-popup :marker="marker"/>
     </l-marker>
+    <l-marker v-if="userLocation"
+              :lat-lng="userLocation"
+              :icon="userLocationIcon"
+    />
   </l-map>
 </template>
 
@@ -21,6 +25,7 @@ import { LMap, LMarker, LTileLayer } from 'vue2-leaflet';
 import StationsMapPopup from '@/components/map/StationsMapPopup.vue';
 import { StationClass } from '@/classes/StationClass';
 import { MarkerClass } from '@/classes/MarkerClass';
+import L from 'leaflet';
 
 @Component({
   components: {
@@ -35,6 +40,8 @@ export default class StationsMap extends Vue {
     if (this.selectedStation) {
       this.zoom = 18;
       this.onSelectedStationUpdate(this.selectedStation, null);
+    } else if (this.userLocation) {
+      this.center = this.userLocation;
     }
   }
 
@@ -44,6 +51,10 @@ export default class StationsMap extends Vue {
 
   get selectedStation(): StationClass {
     return this.$store.getters.getSelectedStation;
+  }
+
+  get userLocation() {
+    return this.$store.getters.getUserLocation;
   }
 
   url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -86,5 +97,12 @@ export default class StationsMap extends Vue {
       }
     }
   }
+
+  userLocationIcon =
+    L.icon({
+      iconUrl: require('@/assets/current-location.svg'),
+      iconSize: [30, 30],
+      iconAnchor: [15, 15]
+    });
 }
 </script>

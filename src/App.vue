@@ -56,6 +56,7 @@ export default class App extends Vue {
 
   mounted() {
     this.$store.dispatch('pollStations');
+    this.$store.dispatch('loadUserLocation')
   }
 }
 </script>

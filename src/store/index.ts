@@ -21,6 +21,7 @@ export default new Vuex.Store({
     selectedStation: <StationClass | null>null,
     loader: false,
     ratings: <RatingClass[]>[],
+    userLocation: <number[] | null>null,
   },
   getters: {
     getStations(state) {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
       const rating = state.ratings.find(todo => todo.stationId === stationId);
       return rating ? rating.rating : 3;
     },
+    getUserLocation(state) {
+      return state.userLocation;
+    }
   },
   mutations: {
     addStation(state, station: StationClass) {
@@ -93,6 +97,16 @@ export default new Vuex.Store({
       const station = context.state.stations.find(s => s.id === id);
       station ? context.commit('selectStation', station) : context.commit('deselectStation');
     },
+    async loadUserLocation(context) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          context.state.userLocation = [position.coords.latitude, position.coords.longitude];
+        },
+        error => {
+          console.warn(error.message);
+        },
+      );
+    }
   },
   modules: {},
 });
