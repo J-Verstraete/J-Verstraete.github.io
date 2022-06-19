@@ -1,8 +1,13 @@
 <template>
-  <v-autocomplete :value="selectedStation"
-                  :items="stationsForAutocomplete"
-                  @input="selectStation"
-  />
+  <v-card max-width="300pt" style="background-color: #fff1ea;position: absolute;   left: 0;right: 0;margin: auto;
+  top: 8pt; z-index: 1" class="pa-2 pb-0">
+    <v-autocomplete
+      label="Zoek"
+      :value="selectedStation"
+      :items="stationsForAutocomplete"
+      @input="selectStation"
+    />
+  </v-card>
 </template>
 
 <script lang="ts">

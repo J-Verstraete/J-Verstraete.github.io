@@ -20,7 +20,7 @@
         </h2>
       </div>
 
-      <v-spacer></v-spacer>
+      <v-spacer/>
       <router-link to="/" class="ml-2 mr-2">
         <v-icon>mdi-map</v-icon>
       </router-link>
@@ -30,7 +30,7 @@
       </router-link>
     </v-app-bar>
 
-    <v-main>
+    <v-main style="background-color: #fff1ea;">
       <router-view/>
     </v-main>
   </v-app>

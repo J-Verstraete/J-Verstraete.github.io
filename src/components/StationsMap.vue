@@ -1,5 +1,5 @@
 <template>
-  <l-map style="height: 80vh;z-index: 0" :zoom.sync="zoom" :center.sync="center">
+  <l-map style="height: 92vh;z-index: 0" :zoom.sync="zoom" :center.sync="center">
     <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
     <l-marker v-for="marker in markers"
               :lat-lng="marker.latlng"
