@@ -1,6 +1,6 @@
 <template>
   <div>
-    <stations-map/>
+    <stations-map :stations="stations"/>
 
     <v-list dense>
       <v-subheader>Stations</v-subheader>
