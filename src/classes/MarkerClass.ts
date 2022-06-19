@@ -54,9 +54,3 @@ export class MarkerClass {
     this.icon = this.getIcon(false);
   }
 }
-
-enum markerType {
-  REGULAR,
-  FULL,
-  EMPTY,
-}
