@@ -36,7 +36,6 @@ import StationsMap from '@/components/StationsMap.vue'; // @ is an alias to /src
 })
 export default class HomeView extends Vue {
   stations: object[] = [];
-
   selectedStation: object | null = null;
 
   mounted() {
