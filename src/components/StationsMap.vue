@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import L from 'leaflet';
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import { LMap, LMarker, LTileLayer } from 'vue2-leaflet';
 
 @Component({
@@ -28,9 +28,9 @@ export default class StationsMap extends Vue {
   markerLatLng = [51.221223, 4.399851];
 
   icon = L.icon({
-    iconUrl: require('@/assets/logo.png'),
-    iconSize: [20, 20],
-    iconAnchor: [10, 10]
+    iconUrl: require('@/assets/pin.svg'),
+    iconSize: [30,30],
+    iconAnchor: [15, 30]
   });
 }
 </script>
