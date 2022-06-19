@@ -2,34 +2,14 @@
   <div>
     <v-autocomplete v-model="selectedStation"
                     :items="stationsForAutocomplete"/>
-    <stations-map :selected-station="selectedStation" @select="selectStation"/>
-    <v-list dense>
-      <v-subheader>Stations</v-subheader>
-      <v-list-item-group
-        v-model="selectedStation"
-        color="primary"
-      >
-        <v-list-item
-          v-for="(station, i) in stations"
-          :key="i"
-          :value="station"
-        >
-          <v-list-item-icon>
-            <v-icon>mdi-bike</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title v-text="station.name"></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
+    <stations-map/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import StationsMap from '@/components/StationsMap.vue';
-import { StationClass } from '@/classes/StationClass'; // @ is an alias to /src
+import { StationClass } from '@/classes/StationClass';
 
 @Component({
   components: {
@@ -37,11 +17,16 @@ import { StationClass } from '@/classes/StationClass'; // @ is an alias to /src
   },
 })
 export default class HomeView extends Vue {
-  stations: StationClass[] = this.$store.getters.getStations;
-  selectedStation: StationClass | null = null;
+  get stations(): StationClass[] {
+    return this.$store.getters.getStations;
+  }
+
+  get selectedStation(): StationClass {
+    return this.$store.getters.getSelectedStation;
+  }
 
   selectStation(id: string) {
-    this.selectedStation = this.stations.find(station => station.id === id) || null;
+    this.$store.dispatch('selectStation', id);
   }
 
   get stationsForAutocomplete() {

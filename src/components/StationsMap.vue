@@ -1,5 +1,5 @@
 <template>
-  <l-map style="height: 50vh;z-index: 0" :zoom.sync="zoom" :center.sync="center">
+  <l-map style="height: 80vh;z-index: 0" :zoom.sync="zoom" :center.sync="center">
     <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
     <l-marker v-for="marker in markers"
               :lat-lng="marker.latlng"
@@ -27,8 +27,13 @@ import { MarkerClass } from '@/classes/MarkerClass';
   },
 })
 export default class StationsMap extends Vue {
-  stations: StationClass[] = this.$store.getters.getStations;
-  @Prop(Object) readonly selectedStation!: StationClass | null;
+  get stations(): StationClass[] {
+    return this.$store.getters.getStations;
+  }
+
+  get selectedStation(): StationClass {
+    return this.$store.getters.getSelectedStation;
+  }
 
   url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
   attribution = '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors';
@@ -45,7 +50,7 @@ export default class StationsMap extends Vue {
   }
 
   selectStation(id: string) {
-    this.$emit('select', id);
+    this.$store.dispatch('selectStation', id);
   }
 
   @Watch('selectedStation')

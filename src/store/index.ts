@@ -26,6 +26,7 @@ export default new Vuex.Store({
       state.stations = [];
     },
     selectStation(state, station: StationClass) {
+      console.log('new selected', station);
       state.selectedStation = station;
     },
     deselectStation(state) {
