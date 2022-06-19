@@ -1,5 +1,7 @@
 <template>
   <div>
+    <stations-map/>
+
     <v-list dense>
       <v-subheader>Stations</v-subheader>
       <v-list-item-group
@@ -19,18 +21,17 @@
         </v-list-item>
       </v-list-item-group>
     </v-list>
-    <hello-world/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue';
-import axios from 'axios'; // @ is an alias to /src
+import axios from 'axios';
+import StationsMap from '@/components/StationsMap.vue'; // @ is an alias to /src
 
 @Component({
   components: {
-    HelloWorld,
+    StationsMap,
   },
 })
 export default class HomeView extends Vue {
