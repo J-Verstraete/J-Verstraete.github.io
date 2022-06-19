@@ -1,19 +1,21 @@
 <template>
   <div>
-    <l-map style="height: 50vh" :zoom="zoom" :center="center">
+    <l-map style="height: 50vh" :zoom.sync="zoom" :center.sync="center">
       <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
       <l-marker v-for="marker in markers"
                 :lat-lng="marker.latlng"
-                :icon="marker.icon" :key="marker.id"/>
+                :icon="marker.icon" :key="marker.id"
+                @click="clicked(marker)"
+      />
     </l-map>
   </div>
 </template>
 
 <script lang="ts">
-import L from 'leaflet';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { LMap, LMarker, LTileLayer } from 'vue2-leaflet';
 import { StationClass } from '@/classes/StationClass';
+import { MarkerClass } from '@/classes/MarkerClass';
 
 @Component({
   components: {
@@ -30,22 +32,12 @@ export default class StationsMap extends Vue {
   zoom = 15;
   center = [51.221223, 4.399851];
 
-  get markers() {
-    return this.stations.map(station => {
-      return {
-        icon: this.getIcon(),
-        latlng: [station.latitude, station.longitude],
-        id: station.id,
-      };
-    });
+  get markers(): MarkerClass[] {
+    return this.stations.map(station => new MarkerClass(station));
   }
 
-  private getIcon() {
-    return L.icon({
-      iconUrl: require('@/assets/pin.svg'),
-      iconSize: [30, 30],
-      iconAnchor: [15, 30]
-    });
+  clicked(marker: MarkerClass) {
+   this.center =marker.latlng
   }
 }
 </script>
