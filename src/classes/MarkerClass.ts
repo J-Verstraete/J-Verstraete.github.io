@@ -24,7 +24,7 @@ export class MarkerClass {
     return L.icon({
       iconUrl: this.getIconLocation(),
       iconSize: selected ? [44, 44] : [30, 30],
-      iconAnchor:selected ?  [22, 44]: [15,30]
+      iconAnchor: selected ? [22, 44] : [15, 30]
     });
   }
 

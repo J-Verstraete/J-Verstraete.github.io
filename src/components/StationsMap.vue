@@ -1,6 +1,10 @@
 <template>
-  <l-map style="height: 92vh;z-index: 0" :zoom.sync="zoom" :center.sync="center">
-    <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
+  <l-map style="height: 92vh;z-index: 0"
+         :zoom.sync="zoom"
+         :center.sync="center"
+         @click="selectStation('')"
+  >
+    <l-tile-layer :url="url" :attribution="attribution"/>
     <l-marker v-for="marker in markers"
               :lat-lng="marker.latlng"
               :icon="marker.icon" :key="marker.id"
@@ -56,6 +60,10 @@ export default class StationsMap extends Vue {
     this.selectStation(marker.id);
   }
 
+  clickMap() {
+    this.selectStation('');
+  }
+
   selectStation(id: string) {
     this.$store.dispatch('selectStation', id);
   }
@@ -63,11 +71,9 @@ export default class StationsMap extends Vue {
   @Watch('selectedStation')
   onSelectedStationUpdate(newVal: StationClass | null, oldVal: StationClass | null) {
     if (oldVal?.id !== newVal?.id) {
-      console.log('Selected station update');
       if (newVal && newVal?.id !== '') {
         const selectedMarker = this.markers.find(marker => marker.id === newVal.id);
         if (selectedMarker) {
-          selectedMarker.name = 'YEEEES';
           selectedMarker.select();
           this.center = selectedMarker.latlng;
         }
