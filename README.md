@@ -65,7 +65,7 @@ Since i have no prior experience with React, I made the following changes to the
 ### bugs & stuff
 - Not every resolution of the icon is updated. On some devices it will show the default Vue-icon.
 - The map is not a perfect 100% screen-height.
-
+- Empty and full stations are switched in the list-view. (I noticed it after deployment and my own deadline)
 
 ## Project setup
 
